@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Image;
 use Illuminate\Http\Response;
@@ -28,34 +29,47 @@ class ImageController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            'product_id' => 'required',
         ]);
         if($validator->fails()){
             return response()->json($validator->errors(),
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        if ($request->hasFile('image')) {
+        $product = Product::find($request->product_id);
+        if($product){
+            if ($request->hasFile('image')) {
+                
+                $imageFile      = $request->file('image');
+                $fileName   = time(). '_'. $imageFile->getClientOriginalName();
             
-            $imageFile      = $request->file('image');
-            $fileName   = time(). '_'. $imageFile->getClientOriginalName();
-        
-            try {
-                $image = Image::create([
-                    'name' => $fileName,
-                    'file' => $fileName,
-                ]);
-                $imageFile->storeAs('images/products/',$fileName);
+                try {
+                    $image = Image::create([
+                        'name' => $fileName,
+                        'file' => $fileName,
+                    ]);
+                    $attachImage = Image::find($image->id)->products()->attach($request->product_id);
 
-                $response = [
-                    'message' => 'Image saved',
-                    'data' => $image
-                ];
-                return response()->json($response,Response::HTTP_CREATED);
-            } catch (\Exception $e) {
-                $response = [
-                    'message' => 'Error : ' . $e->getMessage()
-                ];
-                return response()->json($response,Response::HTTP_CONFLICT);
+                    $imageFile->storeAs('images/products/',$fileName);
+
+                    $response = [
+                        'message' => 'Image saved',
+                        'data' => $image
+                    ];
+                    return response()->json($response,Response::HTTP_CREATED);
+                } catch (\Exception $e) {
+                    $response = [
+                        'message' => 'Error : ' . $e->getMessage()
+                    ];
+                    return response()->json($response,Response::HTTP_CONFLICT);
+                }
             }
+        }
+        else{
+            $response = [
+                'message' => 'Product Not Found',
+                'data' => ''
+            ];
+            return response()->json($response,Response::HTTP_NOT_FOUND);
         }
     }
     public function update( Request $request, $id)
@@ -102,6 +116,8 @@ class ImageController extends Controller
             if(Storage::exists($old_image_path)){
                 Storage::delete($old_image_path);
             }
+            
+            $image->products()->detach();
             $image->delete($id);
             
             $response = [

@@ -18,12 +18,12 @@ return new class extends Migration
             $table->foreign('product_id')
             ->references('id')
             ->on('products')
-            ->onDelete('cascade');
+            ->onDelete('restrict');
 
             $table->foreign('image_id')
             ->references('id')
             ->on('images')
-            ->onDelete('cascade');
+            ->onDelete('restrict');
         });
     }
 

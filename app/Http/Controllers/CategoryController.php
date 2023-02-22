@@ -17,7 +17,7 @@ class CategoryController extends Controller
     }
     public function show($id)
     {
-        $category = Category::find($id);
+        $category = Category::with('products')->where('id',$id)->first();
         return response()->json([
             'data' => $category
         ], Response::HTTP_OK);
@@ -26,7 +26,6 @@ class CategoryController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
-            'enable' => ['required'],
         ]);
         if($validator->fails()){
             return response()->json($validator->errors(),
@@ -76,6 +75,7 @@ class CategoryController extends Controller
         try {
             $category = Category::findOrFail($id);
          
+            $category->products()->detach();
             $category->delete($id);
             $response = [
                 'message' => 'Category deleted',
