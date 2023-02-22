@@ -9,9 +9,9 @@
 
 ## How to install
 
-Database : Mysql 
-Database Name : surplus
-(setting on env)
+- Database : Mysql 
+- Database Name : surplus
+- (setting on env)
 
 Step : 
 - composer install
