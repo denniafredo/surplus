@@ -13,11 +13,12 @@
 - Database Name : surplus
 - (setting on env)
 
-Step : 
+Step run this command: 
 - composer install
 - php artisan migrate:fresh --seed
 - php artisan serve
-- Use postman for testing the API.
+
+Use postman for testing the API.
 
 Postman:
 surplus.postman_collection.json
