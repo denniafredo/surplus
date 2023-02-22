@@ -20,10 +20,19 @@ class ImageController extends Controller
     }
     public function show($id)
     {
+        
         $image = Image::find($id);
-        return response()->json([
-            'data' => $image
-        ], Response::HTTP_OK);
+        if($image){
+            return response()->json([
+                'data' => $image
+            ], Response::HTTP_OK);
+        }
+        else{
+            return response()->json([
+                'message' => 'Image Not Found',
+                'data' => $image
+            ], Response::HTTP_OK);
+        }
     }
     public function store(Request $request)
     {

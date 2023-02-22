@@ -20,10 +20,17 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::with('categories','images')->where('id',$id)->first();
-
-        return response()->json([
-            'data' => $product
-        ], Response::HTTP_OK);
+        if($product){
+            return response()->json([
+                'data' => $product
+            ], Response::HTTP_OK);
+        }
+        else{
+            return response()->json([
+                'message' => 'Product Not Found',
+                'data' => $product
+            ], Response::HTTP_OK);
+        }
     }
     public function store(Request $request)
     {
