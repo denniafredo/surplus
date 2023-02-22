@@ -28,7 +28,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"Teh Pucuk\",\r\n    \"description\":\"Segar\"\r\n}"
+							"raw": "{\r\n    \"name\":\"Teh Pucukzzzzzz\",\r\n    \"description\":\"Segarzxzzzzzz\",\r\n    \"category_id\":2\r\n}"
 						},
 						"url": {
 							"raw": "localhost:8000/api/products/",
@@ -174,7 +174,7 @@
 							}
 						],
 						"url": {
-							"raw": "localhost:8000/api/products/1",
+							"raw": "localhost:8000/api/products/6",
 							"host": [
 								"localhost"
 							],
@@ -182,7 +182,7 @@
 							"path": [
 								"api",
 								"products",
-								"1"
+								"6"
 							],
 							"query": [
 								{
@@ -221,7 +221,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:8000/api/products/5",
+							"raw": "localhost:8000/api/products/6",
 							"host": [
 								"localhost"
 							],
@@ -229,7 +229,7 @@
 							"path": [
 								"api",
 								"products",
-								"5"
+								"6"
 							]
 						}
 					},
@@ -567,7 +567,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:8000/api/images/1",
+							"raw": "localhost:8000/api/images/6",
 							"host": [
 								"localhost"
 							],
@@ -575,7 +575,7 @@
 							"path": [
 								"api",
 								"images",
-								"1"
+								"6"
 							],
 							"query": [
 								{
@@ -615,7 +615,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:8000/api/images/3",
+							"raw": "localhost:8000/api/images/5",
 							"host": [
 								"localhost"
 							],
@@ -623,7 +623,7 @@
 							"path": [
 								"api",
 								"images",
-								"3"
+								"5"
 							],
 							"query": [
 								{
@@ -665,6 +665,11 @@
 									"key": "image",
 									"type": "file",
 									"src": "/C:/Users/Lenovo/Downloads/16.png"
+								},
+								{
+									"key": "product_id",
+									"value": "1",
+									"type": "text"
 								}
 							]
 						},
@@ -698,7 +703,7 @@
 				{
 					"name": "Update Image",
 					"request": {
-						"method": "PUT",
+						"method": "POST",
 						"header": [
 							{
 								"key": "Accept",
@@ -718,12 +723,18 @@
 								{
 									"key": "image",
 									"type": "file",
-									"src": "/C:/Users/Lenovo/Downloads/16.png"
+									"src": "/C:/Users/Lenovo/Downloads/test.png"
+								},
+								{
+									"key": "asd",
+									"value": "asd",
+									"type": "text",
+									"disabled": true
 								}
 							]
 						},
 						"url": {
-							"raw": "localhost:8000/api/images/6",
+							"raw": "localhost:8000/api/images/1",
 							"host": [
 								"localhost"
 							],
@@ -731,7 +742,7 @@
 							"path": [
 								"api",
 								"images",
-								"6"
+								"1"
 							],
 							"query": [
 								{
