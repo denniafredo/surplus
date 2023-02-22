@@ -13,22 +13,22 @@ class ImageSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('image')->insert([
+        DB::table('images')->insert([
             'name' => "aqua.jpg",
             'file' => "aqua.jpg",
             'enable' => true
         ]);
-        DB::table('image')->insert([
+        DB::table('images')->insert([
             'name' => "cleo.jpg",
             'file' => "cleo.jpg",
             'enable' => true
         ]);
-        DB::table('image')->insert([
+        DB::table('images')->insert([
             'name' => "nasi-goreng.jpg",
             'file' => "nasi-goreng.jpg",
             'enable' => true
         ]);
-        DB::table('image')->insert([
+        DB::table('images')->insert([
             'name' => "mie-goreng.jpg",
             'file' => "mie-goreng.jpg",
             'enable' => true

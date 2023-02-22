@@ -12,22 +12,22 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('product')->insert([
+        DB::table('products')->insert([
             'name' => "Aqua",
             'description' => "Air minum Aqua",
             'enable' => true
         ]);
-        DB::table('product')->insert([
+        DB::table('products')->insert([
             'name' => "Cleo",
             'description' => "Air minum Cleo",
             'enable' => true
         ]);
-        DB::table('product')->insert([
+        DB::table('products')->insert([
             'name' => "Nasi Goreng",
             'description' => "Nasi Goreng Mantab",
             'enable' => true
         ]);
-        DB::table('product')->insert([
+        DB::table('products')->insert([
             'name' => "Mie Goreng",
             'description' => "Mie Goreng Jos",
             'enable' => true

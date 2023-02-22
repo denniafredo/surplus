@@ -12,19 +12,19 @@ class ProductImageSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('product_image')->insert([
+        DB::table('product_images')->insert([
             'product_id' => 1,
             'image_id' => 1
         ]);
-        DB::table('product_image')->insert([
+        DB::table('product_images')->insert([
             'product_id' => 2,
             'image_id' => 2
         ]);
-        DB::table('product_image')->insert([
+        DB::table('product_images')->insert([
             'product_id' => 3,
             'image_id' => 3
         ]);
-        DB::table('product_image')->insert([
+        DB::table('product_images')->insert([
             'product_id' => 4,
             'image_id' => 4
         ]);

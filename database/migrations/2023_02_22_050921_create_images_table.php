@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('category', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table) {
             $table->id()->nullable(false)->index();
             $table->string('name')->nullable(false);
+            $table->string('file')->nullable(false);
             $table->boolean('enable')->nullable(false);
-
+        
         });
     }
 
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('category');
+        Schema::dropIfExists('images');
     }
 };

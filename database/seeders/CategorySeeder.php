@@ -12,11 +12,11 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('category')->insert([
+        DB::table('categories')->insert([
             'name' => "Minuman",
             'enable' => true
         ]);
-        DB::table('category')->insert([
+        DB::table('categories')->insert([
             'name' => "Makanan",
             'enable' => true
         ]);
