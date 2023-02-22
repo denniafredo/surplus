@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
+    use HasFactory;
     protected $table = 'images';
     protected $fillable = ['name','file','enable'];
-    public function productImages() {
-        return $this->hasMany('App\Models\ProductImage');
+    public function products() {
+        return $this->belongsToMany(Product::class,'product_images','image_id','product_id');
     }
 }

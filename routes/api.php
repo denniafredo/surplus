@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryProductController;
+use App\Http\Controllers\ImageController;
+use App\Http\Controllers\ProductImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +50,14 @@ Route::controller(ImageController::class)->group(function () {
     Route::get('/images', 'index');
     Route::get('/images/{id}', 'show');
     Route::post('/images', 'store');
-    Route::put('/images/{id}', 'update');
+    Route::post('/images/{id}', 'update');
     Route::delete('/images/{id}', 'destroy');
+});
+
+
+Route::controller(ProductImageController::class)->group(function () {
+    Route::get('/productimages', 'index');
+    Route::get('/productimages/{id}', 'show');
+    Route::post('/productimages', 'store');
+    Route::delete('/productimages/{id}', 'destroy');
 });

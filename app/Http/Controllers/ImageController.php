@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Image;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 class ImageController extends Controller
 {
     public function index()
     {
-        $images = Image::all();
+        $images = Image::with('products')->get();
         return response()->json([
             'data' => $images
         ], Response::HTTP_OK);
@@ -25,60 +27,83 @@ class ImageController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => ['required'],
-            'description' => ['required'],
+            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
         if($validator->fails()){
             return response()->json($validator->errors(),
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        try {
-            $image = Image::create($request->all());
-            $response = [
-                'message' => 'Image created',
-                'data' => $image
-            ];
-            return response()->json($response,Response::HTTP_CREATED);
-        } catch (\Exception $e) {
-            $response = [
-                'message' => 'Error : ' . $e->getMessage()
-            ];
-            return response()->json($response,Response::HTTP_CONFLICT);
+        if ($request->hasFile('image')) {
+            
+            $imageFile      = $request->file('image');
+            $fileName   = time(). '_'. $imageFile->getClientOriginalName();
+        
+            try {
+                $image = Image::create([
+                    'name' => $fileName,
+                    'file' => $fileName,
+                ]);
+                $imageFile->storeAs('images/products/',$fileName);
+
+                $response = [
+                    'message' => 'Image saved',
+                    'data' => $image
+                ];
+                return response()->json($response,Response::HTTP_CREATED);
+            } catch (\Exception $e) {
+                $response = [
+                    'message' => 'Error : ' . $e->getMessage()
+                ];
+                return response()->json($response,Response::HTTP_CONFLICT);
+            }
         }
     }
     public function update( Request $request, $id)
     {
         $image = Image::findOrFail($id);
-
         $validator = Validator::make($request->all(), [
-            'name' => ['required'],
-            'description' => ['required'],
-            'enable' => ['required'],
+            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
         if($validator->fails()){
             return response()->json($validator->errors(),
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        try {
-            $image->update($request->all());
-            $response = [
-                'message' => 'Image updated',
-                'data' => $image
-            ];
-            return response()->json($response,Response::HTTP_OK);
-        } catch (\Exception $e) {
-            $response = [
-                'message' => 'Error : ' . $e->getMessage()
-            ];
-            return response()->json($response,Response::HTTP_CONFLICT);
+        if ($request->hasFile('image')) {
+            $imageFile      = $request->file('image');
+            $fileName   = time(). '_'. $imageFile->getClientOriginalName();
+        
+                $old_image_path = "images/products/".$image->file;
+            try {
+                $image->update(["name"=>$fileName,"file"=>$fileName]);
+                $old_image_path = "images/products/".$image->file;                
+                if(Storage::exists($old_image_path)){
+                    Storage::delete($old_image_path);
+                }
+                $imageFile->storeAs('images/products/',$fileName);
+
+                $response = [
+                    'message' => 'Image updated',
+                    'data' => $old_image_path
+                ];
+                return response()->json($response,Response::HTTP_CREATED);
+            } catch (\Exception $e) {
+                $response = [
+                    'message' => 'Error : ' . $e->getMessage()
+                ];
+                return response()->json($response,Response::HTTP_CONFLICT);
+            }
         }
     }
     public function destroy($id)
     {
         try {
             $image = Image::findOrFail($id);
-         
+            $old_image_path = "images/products/".$image->file;                
+            if(Storage::exists($old_image_path)){
+                Storage::delete($old_image_path);
+            }
             $image->delete($id);
+            
             $response = [
                 'message' => 'Image deleted',
                 'data' => $image
