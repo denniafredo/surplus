@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('category_products', function (Blueprint $table) {
             $table->unsignedBigInteger('product_id')->nullable(false);
             $table->unsignedBigInteger('category_id')->nullable(false);
+            $table->timestamps();
 
             $table->foreign('product_id')
             ->references('id')
@@ -24,6 +25,9 @@ return new class extends Migration
             ->references('id')
             ->on('categories')
             ->onDelete('cascade');
+
+            $table->unique('product_id');
+
         });
     }
 

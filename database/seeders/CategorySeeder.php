@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class CategorySeeder extends Seeder
 {
@@ -14,11 +15,13 @@ class CategorySeeder extends Seeder
     {
         DB::table('categories')->insert([
             'name' => "Minuman",
-            'enable' => true
+            'enable' => true,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
         DB::table('categories')->insert([
             'name' => "Makanan",
-            'enable' => true
+            'enable' => true,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
     }
 }

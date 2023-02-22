@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id()->nullable(false)->index();
             $table->string('name')->nullable(false);
             $table->string('file')->nullable(false);
-            $table->boolean('enable')->nullable(false);
+            $table->boolean('enable')->nullable(false)->default(true);
+            $table->timestamps();
         
         });
     }
